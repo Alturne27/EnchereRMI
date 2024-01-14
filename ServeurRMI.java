@@ -16,14 +16,14 @@ public class ServeurRMI {
             LocateRegistry.createRegistry(1099);
             System.out.println("Annuaire créé ...");
 
-            String path = "C:\\Users\\adelu\\IdeaProjects\\RMITESTDEV\\src\\chat\\com\\chatrmi\\car1.png";
+            String path = "C:\\Users\\adelu\\IdeaProjects\\RMITESTDEV\\src\\chat\\com\\chatrmi\\photoCorvette.jpg";
             byte[] image = Files.readAllBytes(Paths.get(path));
 
 
 
 
             Seller seller = new Seller("Dubois", "+33 7 66 34 23 89");
-            Article article = new Article(20000.0, "Voiture de collection \n sortie en 1958", LocalDateTime.now().withSecond(0).withNano(0).plusMinutes(3), image, seller);
+            Article article = new Article(0.0, "Voiture de collection \n sortie en 1958", LocalDateTime.now().withSecond(0).withNano(0).plusMinutes(3), image, seller);
             ServeurDistant obj = new ServeurDistant(article);
             Naming.rebind("serveurVente",obj);
 

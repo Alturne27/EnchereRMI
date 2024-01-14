@@ -33,9 +33,9 @@ public class ClientDistant extends UnicastRemoteObject implements InterfaceClien
     @Override
     public void AuctionService(String name, double price) throws RemoteException {
         this.serveur.getCurrentAuctionInfo().setCurrentPrice(price);
-        System.out.println("L'offre de " + name + " est de "+ price +"\n");
+        System.out.println("L'offre de " + this.serveur.getCurrentAuctionInfo().getLastBidder() + " est de "+ this.serveur.getCurrentAuctionInfo().getCurrentPrice() +"\n");
         this.serveur.getCurrentAuctionInfo().setLastBidder(name);
-        System.out.println("L'adjudicataire : "+ article.getLastBidder());
+        System.out.println("L'adjudicataire : "+ this.serveur.getCurrentAuctionInfo().getLastBidder());
     }
 
     @Override
@@ -102,7 +102,7 @@ public class ClientDistant extends UnicastRemoteObject implements InterfaceClien
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
         executor.scheduleAtFixedRate(() -> {
             try {
-                Article latestInfo = this.serveur.getAuctionInfo(this);
+                Article latestInfo = this.serveur.getCurrentAuctionInfo();
                 updateAuction(latestInfo.getLastBidder(), latestInfo.getCurrentPrice());
                 System.out.println("Mise à jour reçue : " + latestInfo.getLastBidder() + " - " + latestInfo.getCurrentPrice());
             } catch (RemoteException e) {

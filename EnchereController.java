@@ -1,6 +1,7 @@
 package chat.com.chatrmi;
 
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -93,10 +94,23 @@ public class EnchereController {
         try {
             client.setPrice(enchere);
             client.AuctionService(pseudo, enchere);
+            client.updateAuction(pseudo, enchere);
 
             enchereInput.clear();
 
-            updateLabels(this.client.getSellerInfo(this.client.getArticle().getSeller()), this.client.getArticle().getDescription(), String.valueOf(this.client.getServeur().getCurrentAuctionInfo().getAdjudicataire().getPrice()));
+            Platform.runLater(() -> {
+                try {
+                    this.updateLabels(
+                            client.getSellerInfo(client.getArticle().getSeller()),
+                            client.getArticle().getDescription(),
+                            String.valueOf(client.getServeur().getCurrentAuctionInfo().getCurrentPrice())
+                    );
+
+                    System.out.println("L'adjudicataire : " + client.getServeur().getCurrentAuctionInfo().getLastBidder());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
 
         } catch (Exception e) {
             e.printStackTrace();

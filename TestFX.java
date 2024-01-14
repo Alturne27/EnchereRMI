@@ -12,6 +12,8 @@ public class TestFX extends Application {
     private Stage primaryStage;
     private ClientDistant client = new ClientDistant();
 
+    String outputImgPath = "src/chat/com/chatrmi/img/car1Client.jpg";
+
     public TestFX() throws Exception {}
 
 
@@ -34,9 +36,9 @@ public class TestFX extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("enchere-view.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
-            primaryStage.setTitle("Connexion");
+            primaryStage.setTitle("Enchère");
             primaryStage.setScene(scene);
-            primaryStage.show();
+
 
             EnchereController controller = loader.getController();
             controller.setMainApp(this);
@@ -47,6 +49,13 @@ public class TestFX extends Application {
             InterfaceServeur serveur = (InterfaceServeur) Naming.lookup("serveurVente");
             serveur.joinAuction(client);
             client.setServeur(serveur);
+
+
+
+
+
+
+            primaryStage.show();
 
             client.startAuctionUpdates();
 
