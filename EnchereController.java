@@ -96,13 +96,15 @@ public class EnchereController {
             client.AuctionService(pseudo, enchere);
             client.updateAuction(pseudo, enchere);
 
+            client.getServeur().updateAuction(pseudo, enchere);
+
             enchereInput.clear();
 
             Platform.runLater(() -> {
                 try {
                     this.updateLabels(
-                            client.getSellerInfo(client.getArticle().getSeller()),
-                            client.getArticle().getDescription(),
+                            client.getSellerInfo(client.getServeur().getCurrentAuctionInfo().getSeller()),
+                            client.getServeur().getCurrentAuctionInfo().getDescription(),
                             String.valueOf(client.getServeur().getCurrentAuctionInfo().getCurrentPrice())
                     );
 

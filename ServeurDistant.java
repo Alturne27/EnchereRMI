@@ -34,12 +34,6 @@ public class ServeurDistant extends UnicastRemoteObject implements InterfaceServ
     @Override
     public synchronized void joinAuction(InterfaceClient interfaceClient) throws RemoteException {
 
-
-        interfaceClient.AuctionArticalInfo(article);
-
-
-
-
         registerClient(interfaceClient);
     }
 

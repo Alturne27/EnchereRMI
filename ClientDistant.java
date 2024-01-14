@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 public class ClientDistant extends UnicastRemoteObject implements InterfaceClient {
     private String name;
     private double price;
-    private Article article;
+
 
     private EnchereController controller;
 
@@ -38,10 +38,7 @@ public class ClientDistant extends UnicastRemoteObject implements InterfaceClien
         System.out.println("L'adjudicataire : "+ this.serveur.getCurrentAuctionInfo().getLastBidder());
     }
 
-    @Override
-    public void AuctionArticalInfo(Article article) throws RemoteException {
-        this.article = article;
-    }
+
 
     @Override
     public String getNameBidder() throws RemoteException {
@@ -73,9 +70,7 @@ public class ClientDistant extends UnicastRemoteObject implements InterfaceClien
 
 
 
-    public Article getArticle() {
-        return this.article;
-    }
+
 
     @Override
     public void updateAuction(String name, double price) throws RemoteException {
@@ -103,12 +98,23 @@ public class ClientDistant extends UnicastRemoteObject implements InterfaceClien
         executor.scheduleAtFixedRate(() -> {
             try {
                 Article latestInfo = this.serveur.getCurrentAuctionInfo();
-                updateAuction(latestInfo.getLastBidder(), latestInfo.getCurrentPrice());
-                System.out.println("Mise à jour reçue : " + latestInfo.getLastBidder() + " - " + latestInfo.getCurrentPrice());
+                Platform.runLater(() -> {
+                    try {
+                        updateAuction(latestInfo.getLastBidder(), latestInfo.getCurrentPrice());
+                        System.out.println("Mise à jour reçue : " + latestInfo.getLastBidder() + " - " + latestInfo.getCurrentPrice());
+                        this.controller.updateLabels(
+                                latestInfo.getSeller().toString(),
+                                latestInfo.getDescription(),
+                                String.valueOf(latestInfo.getCurrentPrice())
+                        );
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                });
             } catch (RemoteException e) {
                 e.printStackTrace();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
             }
         }, 0, 1, TimeUnit.SECONDS);
     }
