@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chat.com.chatrmi.EnchereController">
+   <children>
+      <TextField fx:id="pseudoInput" layoutX="184.0" layoutY="337.0" promptText="Pseudo" AnchorPane.bottomAnchor="78.0" AnchorPane.leftAnchor="184.0" AnchorPane.rightAnchor="267.0" AnchorPane.topAnchor="297.0" />
+      <Button fx:id="sendButton" layoutX="410.0" layoutY="315.0" mnemonicParsing="false" onAction="#onSendButton" prefHeight="47.0" prefWidth="96.0" text="Send" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="410.0" AnchorPane.rightAnchor="94.0" AnchorPane.topAnchor="315.0" />
+      <TextField fx:id="enchereInput" layoutX="184.0" layoutY="339.0" promptText="Message" AnchorPane.bottomAnchor="35.4" AnchorPane.leftAnchor="184.0" AnchorPane.rightAnchor="266.4" AnchorPane.topAnchor="339.0" />
+      <ImageView fx:id="myImageView" fitHeight="150.0" fitWidth="200.0" layoutX="59.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="209.40625" AnchorPane.leftAnchor="59.0" AnchorPane.rightAnchor="341.0" AnchorPane.topAnchor="57.0" />
+      <Label fx:id="coordVendeur" disable="true" layoutX="59.0" layoutY="289.0" prefHeight="102.0" prefWidth="96.0" text="Vendeur : " />
+      <Label fx:id="infosEnchere" layoutX="355.0" layoutY="57.0" prefHeight="80.0" prefWidth="150.0" text="Enchere : " />
+      <Label fx:id="dernierPrix" layoutX="355.0" layoutY="158.0" prefHeight="80.0" prefWidth="150.0" text="Dernier prix : XXXX" />
+   </children>
+</AnchorPane>
